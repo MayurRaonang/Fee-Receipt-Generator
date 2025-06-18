@@ -1,0 +1,34 @@
+# Node modules
+fee_receipt_genarator/node_modules/
+Server/node_modules/
+
+# Environment variables
+Server/.env
+
+# Build files (if any)
+fee_receipt_genarator/build/
+fee_receipt_genarator/dist/
+Server/build/
+Server/dist/
+
+# Uploaded files
+Server/uploads/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# IDE/editor folders
+.vscode/
+.idea/
+
+# Coverage
+coverage/
+
+# Temporary files
+*.tmp
+*.swp

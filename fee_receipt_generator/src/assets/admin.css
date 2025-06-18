@@ -1,0 +1,44 @@
+.admin-navbar {
+  background-color: #1e293b;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 32px;
+  align-items: center;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  margin-left: 24px;
+  font-weight: 500;
+}
+
+.nav-links a:hover {
+  text-decoration: underline;
+}
+
+.admin-content {
+  padding: 32px;
+  background-color: #f9fafb;
+  min-height: 80vh;
+}
+
+.notice-list {
+  list-style-type: none;
+  padding-left: 0;
+  margin-top: 16px;
+}
+
+.notice-list li {
+  background-color: #f1f5f9;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-left: 4px solid #0ea5e9;
+  border-radius: 4px;
+}
