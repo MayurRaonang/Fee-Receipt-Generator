@@ -1,0 +1,456 @@
+/* Fees.css */
+
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom right, #ebf4ff, #f3e8ff);
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 2rem;
+}
+
+header {
+  background: white;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #ccc;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+header p {
+  margin: 0.3rem 0 0;
+  color: #777;
+}
+
+.form {
+  background: white;
+  padding: 2rem;
+  margin-top: 2rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.form h2 {
+  margin-top: 0;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 1.2rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #444;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 0.7rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 0.8rem;
+  background: linear-gradient(to right, #3b82f6, #9333ea);
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button[disabled] {
+  background: #bbb;
+  cursor: not-allowed;
+}
+
+.message {
+  margin-top: 1rem;
+  background: #e0fbe0;
+  color: #2f7b2f;
+  padding: 1rem;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+.receipt {
+  margin-top: 2rem;
+  padding: 2rem;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.receipt h3 {
+  margin-top: 0;
+  color: #333;
+  text-align: center;
+}
+
+.receipt p {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+}
+
+.print-button {
+  display: block;
+  margin-top: 2rem;
+  width: 100%;
+  background: #eee;
+  border: none;
+  padding: 0.8rem;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+@media print {
+  .print-button,
+  .form,
+  header {
+    display: none;
+  }
+
+  .receipt {
+    border: none;
+    box-shadow: none;
+  }
+}
+/* Add these styles to your existing Fees.css file */
+
+/* Receipt Container */
+.receipt-container {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  animation: slideIn 0.3s ease-in-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.receipt-card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+  max-width: 600px;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Header Section */
+.receipt-header {
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  color: white;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.institute-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo-placeholder {
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.institute-details h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.institute-details p {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.receipt-type {
+  text-align: right;
+}
+
+.receipt-badge {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Receipt Info */
+.receipt-info {
+  background: #f8f9fa;
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.receipt-number, .receipt-date {
+  font-size: 0.9rem;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+/* Section Styles */
+.student-section, .payment-section, .summary-section {
+  padding: 1.5rem;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.section-title {
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #495057;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 0.5rem;
+  display: inline-block;
+}
+
+/* Student Grid */
+.student-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.student-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.student-item .label {
+  font-size: 0.85rem;
+  color: #6c757d;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.student-item .value {
+  font-size: 1rem;
+  color: #343a40;
+  font-weight: 600;
+  padding: 0.5rem;
+  background: #f8f9fa;
+  border-radius: 6px;
+  border-left: 3px solid #007bff;
+}
+
+/* Payment Table */
+.payment-table {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #e9ecef;
+}
+
+.table-header {
+  background: #6c757d;
+  color: white;
+  padding: 0.75rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.table-row {
+  background: #f8f9fa;
+  padding: 0.75rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.table-row .amount {
+  font-weight: 600;
+  color: #28a745;
+  font-size: 1.1rem;
+}
+
+/* Summary Grid */
+.summary-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  background: #f8f9fa;
+  border-radius: 6px;
+  border-left: 3px solid #dee2e6;
+}
+
+.summary-item.highlight {
+  background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+  border-left-color: #1976d2;
+}
+
+.summary-item.highlight .summary-label,
+.summary-item.highlight .summary-value {
+  color: #1976d2;
+  font-weight: 600;
+}
+
+.summary-label {
+  font-weight: 500;
+  color: #495057;
+}
+
+.summary-value {
+  font-weight: 600;
+  color: #343a40;
+  font-size: 1.1rem;
+}
+
+/* Thank You Section */
+.thank-you-section {
+  padding: 1.5rem;
+  text-align: center;
+  background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+}
+
+.thank-you-message {
+  margin-bottom: 1rem;
+}
+
+.thank-you-message span {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #155724;
+}
+
+.receipt-note p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #6c757d;
+  font-style: italic;
+}
+
+/* Actions */
+.receipt-actions {
+  padding: 1.5rem;
+  text-align: center;
+  background: #f8f9fa;
+}
+
+.print-button {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+}
+
+.print-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+}
+
+.print-button:active {
+  transform: translateY(0);
+}
+
+/* Print Styles */
+@media print {
+  .receipt-container {
+    margin: 0;
+    box-shadow: none;
+  }
+  
+  .receipt-card {
+    box-shadow: none;
+    border: 1px solid #000;
+  }
+  
+  .receipt-actions {
+    display: none;
+  }
+  
+  .print-button {
+    display: none;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .receipt-card {
+    margin: 0 1rem;
+  }
+  
+  .receipt-header {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .receipt-info {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .student-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .table-header,
+  .table-row {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .summary-item {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+}
