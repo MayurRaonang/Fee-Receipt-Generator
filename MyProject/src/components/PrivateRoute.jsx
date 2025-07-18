@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
+import BASE_URL from "../assets/assets";
 
 const PrivateRoute = ({ children }) => {
   const [isValid, setIsValid] = useState(null);
@@ -12,7 +13,7 @@ const PrivateRoute = ({ children }) => {
         return setIsValid(false);
       }
       try {
-        const res = await fetch("http://localhost:5000/validate-token", {
+        const res = await fetch(`${BASE_URL}/validate-token`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

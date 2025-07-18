@@ -6,6 +6,7 @@ import GrowthChart from "../AreaChart/AreaChart";
 import RevenueChart from "../BarChart/BarChart";
 import "./Dashboard.css";
 import axios from "axios";
+import BASE_URL from "../../assets/assets";
 
 export default function Dashboard() {
   const [stats, setStats] = useState({
@@ -19,7 +20,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/dashboard-stats`)
+      .get(`${BASE_URL}/dashboard-stats`)
       .then((res) => {
         setStats(res.data);
       })

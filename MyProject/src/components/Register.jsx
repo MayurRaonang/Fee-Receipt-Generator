@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../assets/login_register.css";
 import { useNavigate, Link } from "react-router-dom";
+import BASE_URL from "../assets/assets";
 
 function Register() {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ function Register() {
     e.preventDefault();
 
     try {
-      const res = await fetch("http://localhost:5000/register", {
+      const res = await fetch(`${BASE_URL}/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -33,7 +34,7 @@ function Register() {
       const result = await res.json();
       if (res.ok) {
         alert("Registration successful! Waiting for you to verify your email.");
-        //navigate("/login");
+        navigate("/login");
       } else {
         alert(result.error || "Registration failed");
       }

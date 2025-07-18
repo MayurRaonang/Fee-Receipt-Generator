@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 import axios from 'axios';
+import BASE_URL from "../../assets/assets";
 
 export default function GrowthChart() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/monthly-growth")
+    axios.get(`${BASE_URL}/monthly-growth`)
       .then((res) => setData(res.data))
       .catch((err) => console.error("Error fetching chart data:", err));
   }, []);

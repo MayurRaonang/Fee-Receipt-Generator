@@ -1,6 +1,7 @@
 import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import BASE_URL from "../../assets/assets";
 
 export default function RevenueChart() {
   const [revenueData, setRevenueData] = useState([]);
@@ -8,7 +9,7 @@ export default function RevenueChart() {
   useEffect(() => {
     const fetchRevenueData = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/monthly-revenue');
+        const res = await axios.get(`${BASE_URL}/monthly-revenue`);
         setRevenueData(res.data);
       } catch (err) {
         console.error("Error fetching revenue data", err);

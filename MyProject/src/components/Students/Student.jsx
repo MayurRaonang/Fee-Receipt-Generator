@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Student.css";
 import Sidebar from "../Sidebar/Sidebar";
+import BASE_URL from "../../assets/assets";
 
 export default function Student() {
   const [students, setStudents] = useState([]);
@@ -22,7 +23,7 @@ export default function Student() {
         alert("You must be logged in to register a student.");
         return;
       }
-      const res = await fetch("http://localhost:5000/students", {
+      const res = await fetch(`${BASE_URL}/students`, {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -60,7 +61,7 @@ export default function Student() {
         console.log("Token:", token);
         console.log("Form data:", formData);
 
-      const res = await fetch("http://localhost:5000/students", {
+      const res = await fetch(`${BASE_URL}/students`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
