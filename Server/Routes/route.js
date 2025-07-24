@@ -33,7 +33,7 @@ router.post("/register", async (req, res) => {
     const token = jwt.sign({ email }, verificationSecret, { expiresIn: "1h" });
 
     // Email with verification link
-    const verificationLink = `http://localhost:5000/verify-email?token=${token}`;
+    const verificationLink = `https://fee-receipt-generator.onrender.com/verify-email?token=${token}`;
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: email,
