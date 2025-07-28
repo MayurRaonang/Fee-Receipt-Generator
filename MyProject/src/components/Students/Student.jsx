@@ -2,8 +2,12 @@ import React, { useState, useEffect } from "react";
 import "./Student.css";
 import Sidebar from "../Sidebar/Sidebar";
 import BASE_URL from "../../assets/assets";
+import { useNavigate } from "react-router-dom";
+
+
 
 export default function Student() {
+  const navigate = useNavigate();
   const [students, setStudents] = useState([]);
   const [formData, setFormData] = useState({
     name: "",
@@ -83,6 +87,11 @@ export default function Student() {
       setLoading(false);
     }
   };
+
+  const handleClick = (student) => {
+    navigate("/fees", { state: { student } });
+  };
+
 
   const filteredStudents = students.filter(student =>
     student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -191,6 +200,7 @@ export default function Student() {
                   <th>Fees Paid</th>
                   <th>Payment Mode</th>
                   <th>Payment Date</th>
+                  <th>Pay</th>
                 </tr>
               </thead>
               <tbody>
@@ -210,6 +220,7 @@ export default function Student() {
                       <td className="fees">₹{student.feesPaid || 0}</td>
                       <td>{student.paymentMode || "Not specified"}</td>
                       <td>{student.paymentDate ? new Date(student.paymentDate).toLocaleDateString() : "Not paid"}</td>
+                      <td><button onClick={() => handleClick(student)}>pay</button></td>
                     </tr>
                   ))
                 )}

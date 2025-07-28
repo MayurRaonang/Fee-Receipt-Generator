@@ -1,19 +1,22 @@
 import Sidebar from "../Sidebar/Sidebar";
 import React, { useState } from "react";
 import "./Fees.css";
-import { useNavigate } from "react-router-dom";
 import BASE_URL from "../../assets/assets";
+import { useLocation, useNavigate } from "react-router-dom";
+
+
 
 const Fees = () => {
   const navigate = useNavigate();
-
+  const location = useLocation();
+const studentData = location.state?.student || {};
   const [formData, setFormData] = useState({
-    name: "",
-    standard: "",
-    amountPaid: "",
-    email: "",
-    paymentMethod: ""
-  });
+  name: studentData.name || "",
+  standard: studentData.standard || "",
+  amountPaid: "",
+  email: studentData.email || "",
+  paymentMethod: ""
+});
 
   const [receipt, setReceipt] = useState(null);
   const [message, setMessage] = useState("");
