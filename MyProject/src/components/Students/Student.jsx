@@ -4,8 +4,6 @@ import Sidebar from "../Sidebar/Sidebar";
 import BASE_URL from "../../assets/assets";
 import { useNavigate } from "react-router-dom";
 
-
-
 export default function Student() {
   const navigate = useNavigate();
   const [students, setStudents] = useState([]);
@@ -17,6 +15,8 @@ export default function Student() {
   });
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedStudents, setSelectedStudents] = useState(new Set());
+  const [selectAll, setSelectAll] = useState(false);
 
   const fetchStudents = async () => {
     setLoading(true);
@@ -89,15 +89,127 @@ export default function Student() {
   };
 
   const handleClick = (student) => {
-    navigate("/fees", { state: { student } });
+    console.log("Deleting student:", student);
+    if (window.confirm(`Are you sure you want to delete ${student.name}?`)) {
+      setLoading(true);
+      fetch(`${BASE_URL}/deletStudent/${student._id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            alert("Student deleted successfully.");
+            fetchStudents();
+            // Remove from selected students if it was selected
+            setSelectedStudents(prev => {
+              const newSet = new Set(prev);
+              newSet.delete(student._id);
+              return newSet;
+            });
+          } else {
+            alert("Failed to delete student.");
+          }
+        })
+        .catch(err => console.error("Delete error:", err))
+        .finally(() => setLoading(false));
+    }
   };
 
+  // Handle individual student selection
+  const handleStudentSelect = (studentId, isChecked) => {
+    setSelectedStudents(prev => {
+      const newSet = new Set(prev);
+      if (isChecked) {
+        newSet.add(studentId);
+      } else {
+        newSet.delete(studentId);
+      }
+      return newSet;
+    });
+  };
+
+  // Handle select all functionality
+  const handleSelectAll = (isChecked) => {
+    setSelectAll(isChecked);
+    if (isChecked) {
+      // Select all filtered students
+      const allFilteredIds = new Set(filteredStudents.map(student => student._id));
+      setSelectedStudents(allFilteredIds);
+    } else {
+      // Deselect all
+      setSelectedStudents(new Set());
+    }
+  };
+
+  // Handle bulk delete
+  const handleBulkDelete = async () => {
+    if (selectedStudents.size === 0) {
+      alert("Please select students to delete.");
+      return;
+    }
+
+    const selectedCount = selectedStudents.size;
+    if (!window.confirm(`Are you sure you want to delete ${selectedCount} selected student(s)?`)) {
+      return;
+    }
+
+    setLoading(true);
+    const token = localStorage.getItem("token");
+    
+    try {
+      // Delete all selected students
+      const deletePromises = Array.from(selectedStudents).map(studentId =>
+        fetch(`${BASE_URL}/deletStudent/${studentId}`, {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }).then(res => res.json())
+      );
+
+      const results = await Promise.all(deletePromises);
+      const successCount = results.filter(result => result.success).length;
+      
+      if (successCount === selectedCount) {
+        alert(`Successfully deleted ${successCount} student(s).`);
+      } else {
+        alert(`Deleted ${successCount} out of ${selectedCount} students. Some deletions failed.`);
+      }
+      
+      // Refresh the students list and clear selections
+      fetchStudents();
+      setSelectedStudents(new Set());
+      setSelectAll(false);
+      
+    } catch (err) {
+      console.error("Bulk delete error:", err);
+      alert("An error occurred during bulk deletion.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const filteredStudents = students.filter(student =>
     student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     student.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    student.standard.toLowerCase().includes(searchTerm.toLowerCase())
+    student.standard.toLowerCase().includes(searchTerm.toLowerCase())||
+    student.stdID.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  // Update select all state based on individual selections
+  useEffect(() => {
+    if (filteredStudents.length === 0) {
+      setSelectAll(false);
+    } else {
+      const allFilteredSelected = filteredStudents.every(student => 
+        selectedStudents.has(student._id)
+      );
+      setSelectAll(allFilteredSelected);
+    }
+  }, [selectedStudents, filteredStudents]);
 
   return (
     <div className="student-container">
@@ -178,13 +290,29 @@ export default function Student() {
           <div className="search-container">
             <input
               type="text"
-              placeholder="Search students..."
+              placeholder="Search name/email/stdID/course"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="search-input"
             />
           </div>
         </div>
+
+        {/* Bulk Actions */}
+        {selectedStudents.size > 0 && (
+          <div className="bulk-actions">
+            <span className="selected-count">
+              {selectedStudents.size} student(s) selected
+            </span>
+            <button 
+              onClick={handleBulkDelete}
+              className="bulk-delete-btn"
+              disabled={loading}
+            >
+              {loading ? "Deleting..." : `Delete Selected (${selectedStudents.size})`}
+            </button>
+          </div>
+        )}
 
         <div className="table-container">
           {loading ? (
@@ -193,34 +321,52 @@ export default function Student() {
             <table className="students-table">
               <thead>
                 <tr>
+                  <th>
+                    <input
+                      type="checkbox"
+                      checked={selectAll}
+                      onChange={(e) => handleSelectAll(e.target.checked)}
+                      disabled={filteredStudents.length === 0}
+                    />
+                  </th>
+                  <th>Student ID</th>
                   <th>Name</th>
                   <th>Standard</th>
                   <th>Email</th>
                   <th>Total Fees</th>
                   <th>Fees Paid</th>
-                  <th>Payment Mode</th>
-                  <th>Payment Date</th>
+                  
                   <th>Pay</th>
+                  <th>History</th>
+                  <th>Delete</th>
                 </tr>
               </thead>
               <tbody>
                 {filteredStudents.length === 0 ? (
                   <tr>
-                    <td colSpan="7" className="no-data">
+                    <td colSpan="12" className="no-data">
                       {searchTerm ? "No students found matching your search." : "No students found."}
                     </td>
                   </tr>
                 ) : (
                   filteredStudents.map((student) => (
                     <tr key={student._id}>
+                      <td>
+                        <input
+                          type="checkbox"
+                          checked={selectedStudents.has(student._id)}
+                          onChange={(e) => handleStudentSelect(student._id, e.target.checked)}
+                        />
+                      </td>
+                      <td className="student-id">{student.stdID}</td>
                       <td className="student-name">{student.name}</td>
                       <td>{student.standard}</td>
                       <td>{student.email}</td>
                       <td className="fees">₹{student.totalFees}</td>
-                      <td className="fees">₹{student.feesPaid || 0}</td>
-                      <td>{student.paymentMode || "Not specified"}</td>
-                      <td>{student.paymentDate ? new Date(student.paymentDate).toLocaleDateString() : "Not paid"}</td>
-                      <td><button onClick={() => handleClick(student)}>pay</button></td>
+                      <td className="fees-paid">₹{student.feesPaid || 0}</td>
+                      <td><button onClick={() => navigate("/fees", { state: { student } })}>pay</button></td>
+                      <td><button onClick={() => navigate("/student-info", { state: { student } })}>History</button></td>
+                      <td><button onClick={() => handleClick(student)}>🗑️</button></td>
                     </tr>
                   ))
                 )}

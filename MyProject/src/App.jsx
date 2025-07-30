@@ -47,6 +47,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Student from "./components/Students/Student";
+import StudentInfo from "./components/StudentInfo/StudentInfo";
 import Notification from "./components/Notification";
 import Fees from "./components/Fees/Fees";
 
@@ -77,6 +78,7 @@ function App() {
             </PrivateRoute>
           }
         />
+        <Route path="/student-info" element={<PrivateRoute><StudentInfo /></PrivateRoute>} />
 
         <Route
           path="/notification"

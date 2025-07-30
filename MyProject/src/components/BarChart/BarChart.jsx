@@ -9,8 +9,14 @@ export default function RevenueChart() {
   useEffect(() => {
     const fetchRevenueData = async () => {
       try {
-        const res = await axios.get(`${BASE_URL}/monthly-revenue`);
+        const token = localStorage.getItem("token");
+        const res = await axios.get(`${BASE_URL}/monthly-revenue`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setRevenueData(res.data);
+        console.log("Revenue data fetched:", res.data);
       } catch (err) {
         console.error("Error fetching revenue data", err);
       }

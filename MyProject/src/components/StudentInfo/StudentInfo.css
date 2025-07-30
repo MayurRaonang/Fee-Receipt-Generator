@@ -1,0 +1,440 @@
+/* StudentInfo.css */
+
+.student-info-container {
+  min-height: 100vh;
+  background: #f5f5f5;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.student-info-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+/* Error State */
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+.error-card {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  max-width: 400px;
+}
+
+.error-icon {
+  font-size: 60px;
+  margin-bottom: 20px;
+}
+
+.error-card h2 {
+  color: #e74c3c;
+  margin: 0 0 15px 0;
+  font-size: 1.8em;
+}
+
+.error-card p {
+  color: #7f8c8d;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.back-button {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: all 0.3s ease;
+}
+
+.back-button:hover {
+  background: #2980b9;
+  transform: translateY(-2px);
+}
+
+/* Header Section */
+.student-header {
+  background: white;
+  padding: 30px;
+  border-bottom: 1px solid #e9ecef;
+  text-align: center;
+}
+
+.student-header h1 {
+  margin: 0 0 15px 0;
+  font-size: 2.2em;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.student-header p {
+  margin: 8px 0;
+  font-size: 1.1em;
+  color: #7f8c8d;
+}
+
+/* Fee Summary Cards */
+.fee-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  padding: 40px;
+  background: #f8f9fa;
+}
+
+.summary-card {
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-left: 5px solid transparent;
+}
+
+.summary-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.card-icon {
+  font-size: 40px;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.total-fees {
+  border-left-color: #667eea;
+}
+
+.total-fees .card-icon {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+.paid-fees {
+  border-left-color: #27ae60;
+}
+
+.paid-fees .card-icon {
+  background: linear-gradient(135deg, #27ae60, #2ecc71);
+}
+
+.remaining-fees {
+  border-left-color: #f39c12;
+}
+
+.remaining-fees .card-icon {
+  background: linear-gradient(135deg, #f39c12, #e67e22);
+}
+
+.card-content h3 {
+  margin: 0 0 8px 0;
+  color: #7f8c8d;
+  font-size: 1em;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.card-content .amount {
+  margin: 0;
+  font-size: 2.2em;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+/* Payment History Section */
+.payment-history-section {
+  padding: 40px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.section-header h2 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 1.8em;
+  font-weight: 600;
+}
+
+.payment-count {
+  background: #3498db;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-size: 0.9em;
+  font-weight: 500;
+}
+
+/* Payment Table */
+.payments-container {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.payments-table-wrapper {
+  overflow-x: auto;
+}
+
+.payments-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.payments-table thead {
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+}
+
+.payments-table th {
+  padding: 20px 15px;
+  text-align: left;
+  font-weight: 600;
+  color: #2c3e50;
+  text-transform: uppercase;
+  font-size: 0.85em;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.payment-row {
+  transition: background-color 0.3s ease;
+}
+
+.payment-row:hover {
+  background: #f8f9fa;
+}
+
+.payments-table td {
+  padding: 20px 15px;
+  border-bottom: 1px solid #e9ecef;
+  vertical-align: middle;
+}
+
+.payment-number {
+  background: #3498db;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.8em;
+  font-weight: bold;
+}
+
+.payment-amount {
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #27ae60;
+}
+
+.payment-method {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.9em;
+  font-weight: 500;
+}
+
+.payment-method.upi {
+  background: #e8f5e8;
+  color: #27ae60;
+}
+
+.payment-method.cash {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.payment-method.bank {
+  background: #cce5ff;
+  color: #0066cc;
+}
+
+.payment-date {
+  color: #7f8c8d;
+  font-size: 0.95em;
+}
+
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85em;
+  font-weight: 500;
+}
+
+.status-badge.completed {
+  background: #d4edda;
+  color: #155724;
+}
+
+/* No Payments State */
+.no-payments {
+  text-align: center;
+  padding: 60px 20px;
+  background: #f8f9fa;
+  border-radius: 12px;
+}
+
+.no-payments-icon {
+  font-size: 80px;
+  margin-bottom: 20px;
+  opacity: 0.5;
+}
+
+.no-payments h3 {
+  color: #7f8c8d;
+  margin: 0 0 10px 0;
+  font-size: 1.5em;
+}
+
+.no-payments p {
+  color: #bdc3c7;
+  margin: 0;
+  font-size: 1.1em;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  padding: 40px;
+  background: #f8f9fa;
+  border-top: 1px solid #e9ecef;
+}
+
+.action-btn {
+  padding: 15px 30px;
+  border: none;
+  border-radius: 25px;
+  font-size: 1em;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.action-btn.primary {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: white;
+  box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+}
+
+.action-btn.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+}
+
+.action-btn.secondary {
+  background: #6c757d;
+  color: white;
+  box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+}
+
+.action-btn.secondary:hover {
+  background: #5a6268;
+  transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .student-info-container {
+    padding: 10px;
+  }
+  
+  .student-header {
+    padding: 20px;
+  }
+  
+  .student-header h1 {
+    font-size: 1.8em;
+  }
+  
+  .fee-summary-grid {
+    grid-template-columns: 1fr;
+    padding: 20px;
+    gap: 20px;
+  }
+  
+  .payment-history-section {
+    padding: 20px;
+  }
+  
+  .section-header {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+  
+  .payments-table-wrapper {
+    overflow-x: scroll;
+  }
+  
+  .payments-table {
+    min-width: 600px;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+    padding: 20px;
+  }
+  
+  .action-btn {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .student-header h1 {
+    font-size: 1.6em;
+  }
+  
+  .summary-card {
+    padding: 20px;
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .card-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+  }
+  
+  .card-content .amount {
+    font-size: 1.8em;
+  }
+}

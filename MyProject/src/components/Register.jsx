@@ -33,7 +33,7 @@ function Register() {
 
       const result = await res.json();
       if (res.ok) {
-        alert("Registration successful! Waiting for you to verify your email.");
+        alert(result.message);
         navigate("/login");
       } else {
         alert(result.error || "Registration failed");
@@ -72,7 +72,16 @@ function Register() {
           <input type="email" name="email" placeholder="E-mail address" onChange={handleChange} required />
         </div>
         <div className="form_item">
-          <input type="text" name="role" placeholder="Your Role" onChange={handleChange} required />
+          <input type="text" name="phone" placeholder="Phone Number" onChange={handleChange} required />
+        </div>
+        <div className="form_item">
+          <input type="text" name="insname" placeholder="Institute Name" onChange={handleChange} required />
+        </div>
+        <div className="form_item">
+          <input type="text" name="tagline" placeholder="Tagline" onChange={handleChange} required />
+        </div>
+        <div className="form_item">
+          <input type="text" name="insaddress" placeholder="Institute Address" onChange={handleChange} required />
         </div>
         <button type="submit">Register</button>
         <p className="sign-in-text">

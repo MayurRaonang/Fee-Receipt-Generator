@@ -28,6 +28,17 @@ const studentData = location.state?.student || {};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const confirm = window.confirm(`Are you sure you want to submit ₹${formData.amountPaid} fees for ${formData.name}?`);
+    if (!confirm) return;
+    if (!formData.name || !formData.standard || !formData.amountPaid || !formData.email || !formData.paymentMethod) {
+      alert("Please fill in all fields.");
+      return;
+    }
+    if(formData.amountPaid <= 0) {
+      alert("Amount paid must be greater than zero.");
+      return;
+    }
     setLoading(true);
     setMessage("");
     setReceipt(null);
@@ -55,7 +66,7 @@ const studentData = location.state?.student || {};
       if (!response.ok) {
         throw new Error(data.error || "Fee submission failed");
       }
-
+      console.log("Fee submission response:", data);
       setMessage("Receipt updated and sent successfully!");
       setReceipt({
         name: data.updatedStudent.name,
@@ -63,7 +74,11 @@ const studentData = location.state?.student || {};
         totalFees: data.updatedStudent.totalFees,
         feesPaid: data.updatedStudent.feesPaid,
         feesRemaining: data.updatedStudent.feesRemaining,
-        paymentMethod: formData.paymentMethod
+        paymentMethod: formData.paymentMethod,
+        useraddress: data.user.address,
+        userinsname: data.user.instituteName,
+        usertagline: data.user.tagline,
+        userPhone: data.user.phone,
       });
     } catch (error) {
       console.error("Error submitting fee:", error.message);
@@ -169,8 +184,8 @@ const studentData = location.state?.student || {};
                       <span>📚</span>
                     </div>
                     <div className="institute-details">
-                      <h2>Career Compass Institute</h2>
-                      <p>Excellence in Education</p>
+                      <h2>{receipt.userinsname}</h2>
+                      <p>{receipt.usertagline}</p>
                     </div>
                   </div>
                   <div className="receipt-type">

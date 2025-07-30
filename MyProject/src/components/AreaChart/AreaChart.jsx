@@ -7,9 +7,22 @@ export default function GrowthChart() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios.get(`${BASE_URL}/monthly-growth`)
-      .then((res) => setData(res.data))
-      .catch((err) => console.error("Error fetching chart data:", err));
+    const fetchGrowthData = async () => {
+      try {
+        const token = localStorage.getItem("token"); // Or sessionStorage, depending on where you store it
+        const res = await axios.get(`${BASE_URL}/monthly-growth`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setData(res.data);
+        console.log("Growth data fetched:", res.data);
+      } catch (err) {
+        console.error("Error fetching chart data:", err);
+      }
+    };
+
+    fetchGrowthData();
   }, []);
 
   return (

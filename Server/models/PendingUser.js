@@ -1,7 +1,7 @@
-// Server/models/User.js
+// Schema for pending registrations (new file: models/PendingUser.js)
 const mongoose = require("mongoose");
 
-const userSchema = new mongoose.Schema({
+const pendingUserSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
@@ -31,18 +31,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: "Your Institute Address Here",
   },
-
-  role: {
-    type: String,
-    enum: ["admin", "student"],
-    default: "student",
-    required: true,
-  },
-  verified: {
-    type: Boolean,
-    default: false,
-  },
-  // googleId: { type: String, default: null },
+  createdAt: { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model("PendingUser", pendingUserSchema);

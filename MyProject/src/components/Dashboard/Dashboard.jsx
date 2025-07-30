@@ -19,15 +19,24 @@ export default function Dashboard() {
   const userId = localStorage.getItem("userId"); // Or get from auth context
 
   useEffect(() => {
-    axios
-      .get(`${BASE_URL}/dashboard-stats`)
-      .then((res) => {
-        setStats(res.data);
-      })
-      .catch((err) => {
-        console.error("Error fetching dashboard stats", err);
+  const fetchStats = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      const res = await axios.get(`${BASE_URL}/dashboard-stats`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
-  }, [userId]);
+
+      setStats(res.data);
+    } catch (err) {
+      console.error("Error fetching dashboard stats", err);
+    }
+  };
+
+  fetchStats();
+}, [userId]);
 
   return (
     <div className="dashboard-container">
