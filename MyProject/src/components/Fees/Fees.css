@@ -402,22 +402,27 @@ button[disabled] {
 
 /* Print Styles */
 @media print {
-  .receipt-container {
-    margin: 0;
-    box-shadow: none;
+  body * {
+    visibility: hidden;
   }
-  
-  .receipt-card {
-    box-shadow: none;
-    border: 1px solid #000;
+
+  #print-receipt, #print-receipt * {
+    visibility: visible;
   }
-  
-  .receipt-actions {
-    display: none;
+
+  #print-receipt {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
   }
-  
+
+  .sidebar,
+  .message,
+  form,
+  header,
   .print-button {
-    display: none;
+    display: none !important;
   }
 }
 

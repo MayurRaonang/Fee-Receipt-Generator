@@ -130,7 +130,7 @@ export default function StudentInfo() {
 
         {/* Action Buttons */}
         <div className="action-buttons">
-          <button className="action-btn primary" onClick={() => navigate('/fees', { state: { prefillStudent: student } })}>
+          <button className="action-btn primary" onClick={() => navigate('/fees', { state: { student } })}>
             Make Payment
           </button>
           <button className="action-btn secondary" onClick={() => navigate(-1)}>

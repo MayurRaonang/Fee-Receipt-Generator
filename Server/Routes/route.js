@@ -21,8 +21,8 @@ const transporter = nodemailer.createTransport({
 });
 
 router.post("/register", async (req, res) => {
-  const { username, password, email, phone, insaddress, insname, tagline} = req.body;
-
+  const { username, password, email, phone, insaddress, insname} = req.body;
+  const tagline = req.body.tagline || " "; // Default tagline if not provided
   try {
     const existingUser = await User.findOne({ username });
     const existingPending = await PendingUser.findOne({ username });
@@ -177,9 +177,18 @@ router.get("/validate-token", (req, res) => {
 });
 
 router.post("/fees", authenticateToken, async (req, res) => {
-  const { name, standard, amountPaid, email, paymentMethod } = req.body;
+  const { name, standard, amountPaid, email, date, paymentMethod } = req.body;
+  console.log("Received fee payment request:", req.body);
   console.log("Processing fee payment for student:", name);
   console.log("Inside fees for user:", req.user);
+  console.log("Payment details:", {
+    name,
+    standard,
+    amountPaid,
+    email,
+    date,
+    paymentMethod,
+  });
   try {
 
     const loggedInUser = await User.findById(req.user._id);
@@ -217,7 +226,7 @@ router.post("/fees", authenticateToken, async (req, res) => {
     student.feePayments.push({
       amount: parseFloat(amountPaid),
       paymentMode: paymentMethod,
-      paymentDate: new Date(),
+      paymentDate: date ? new Date(date) : new Date(),
     });
     //student.paymentMode = paymentMethod;
 
@@ -274,17 +283,12 @@ router.post("/fees", authenticateToken, async (req, res) => {
 
     // Receipt details section
     const receiptNumber = `RCP-${Date.now()}`;
-    const paymentDate = new Date().toLocaleDateString("en-IN", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
+    const paymentDate = date ? new Date(date).toLocaleDateString() : new Date().toLocaleDateString();
 
     doc
       .fillColor("#343a40")
       .fontSize(10)
       .font("Helvetica")
-      .text(`Receipt No: ${receiptNumber}`, 400, 250)
       .text(`Date: ${paymentDate}`, 400, 265);
 
     // Student information section
@@ -473,10 +477,7 @@ router.post("/fees", authenticateToken, async (req, res) => {
                     <td style="padding: 8px 0; color: #495057;"><strong>Payment Date:</strong></td>
                     <td style="padding: 8px 0; color: #495057;">${paymentDate}</td>
                   </tr>
-                  <tr>
-                    <td style="padding: 8px 0; color: #495057;"><strong>Receipt Number:</strong></td>
-                    <td style="padding: 8px 0; color: #495057;">${receiptNumber}</td>
-                  </tr>
+                  
                 </table>
               </div>
               

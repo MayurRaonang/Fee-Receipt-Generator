@@ -78,7 +78,7 @@ function Register() {
           <input type="text" name="insname" placeholder="Institute Name" onChange={handleChange} required />
         </div>
         <div className="form_item">
-          <input type="text" name="tagline" placeholder="Tagline" onChange={handleChange} required />
+          <input type="text" name="tagline" placeholder="Tagline" onChange={handleChange} />
         </div>
         <div className="form_item">
           <input type="text" name="insaddress" placeholder="Institute Address" onChange={handleChange} required />

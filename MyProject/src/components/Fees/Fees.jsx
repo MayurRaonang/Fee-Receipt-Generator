@@ -15,7 +15,8 @@ const studentData = location.state?.student || {};
   standard: studentData.standard || "",
   amountPaid: "",
   email: studentData.email || "",
-  paymentMethod: ""
+  paymentMethod: "",
+  date: ""
 });
 
   const [receipt, setReceipt] = useState(null);
@@ -75,6 +76,7 @@ const studentData = location.state?.student || {};
         feesPaid: data.updatedStudent.feesPaid,
         feesRemaining: data.updatedStudent.feesRemaining,
         paymentMethod: formData.paymentMethod,
+        paymentDate: formData.date ? new Date(formData.date).toLocaleDateString() : new Date().toLocaleDateString(),
         useraddress: data.user.address,
         userinsname: data.user.instituteName,
         usertagline: data.user.tagline,
@@ -153,6 +155,16 @@ const studentData = location.state?.student || {};
             </div>
 
             <div className="form-group">
+              <label>Payment Date (optional)</label>
+              <input
+                type="date"
+                name="date"
+                value={formData.paymentDate}
+                onChange={handleChange}
+              />
+            </div>
+
+            <div className="form-group">
               <label>Payment Method</label>
               <select
                 name="paymentMethod"
@@ -175,16 +187,14 @@ const studentData = location.state?.student || {};
           {message && <div className="message">{message}</div>}
 
           {receipt && (
-            <div className="receipt-container">
+            <div className="receipt-container" id="print-receipt">
               <div className="receipt-card">
                 {/* Header */}
                 <div className="receipt-header">
                   <div className="institute-info">
-                    <div className="logo-placeholder">
-                      <span>📚</span>
-                    </div>
+                    
                     <div className="institute-details">
-                      <h2>{receipt.userinsname}</h2>
+                      <h1>{receipt.userinsname}</h1>
                       <p>{receipt.usertagline}</p>
                     </div>
                   </div>
@@ -195,9 +205,7 @@ const studentData = location.state?.student || {};
 
                 {/* Receipt Info */}
                 <div className="receipt-info">
-                  <div className="receipt-number">
-                    <span>Receipt No: RCP-{Date.now().toString().slice(-8)}</span>
-                  </div>
+                  
                   <div className="receipt-date">
                     <span>Date: {new Date().toLocaleDateString()}</span>
                   </div>
@@ -221,7 +229,7 @@ const studentData = location.state?.student || {};
                     </div>
                     <div className="student-item">
                       <span className="label">Payment Date</span>
-                      <span className="value">{new Date().toLocaleDateString()}</span>
+                      <span className="value">{receipt.paymentDate}</span>
                     </div>
                   </div>
                 </div>

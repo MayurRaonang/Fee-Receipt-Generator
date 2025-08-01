@@ -6,11 +6,7 @@ require("dotenv").config();
 const app = express();
 
 // Middleware
-app.use(cors({
-  origin: "https://fee-receipt-generator-frontend.onrender.com",
-  credentials: true,
-  allowedHeaders: ["Content-Type", "Authorization"],
-}));
+app.use(cors());
 app.use(express.json());
 
 
